@@ -48,6 +48,53 @@
         </section>
 
         <section>
+          <!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+<button
+  style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+  id="checkout-button-sku_GE66mraE6Is9rM"
+  role="link"
+>
+  Buy Now
+</button>
+
+<div id="error-message"></div>
+
+<script>
+(function() {
+  var stripe = Stripe('pk_live_KtCUYTgZV4okjlmCiBAjATql');
+
+  var checkoutButton = document.getElementById('checkout-button-sku_GE66mraE6Is9rM');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: 'sku_GE66mraE6Is9rM', quantity: 1}],
+
+      // Do not rely on the redirect to the successUrl for fulfilling
+      // purchases, customers may not always reach the success_url after
+      // a successful payment.
+      // Instead use one of the strategies described in
+      // https://stripe.com/docs/payments/checkout/fulfillment
+      successUrl: window.location.protocol + '//30daysoftrump.com/success',
+      cancelUrl: window.location.protocol + '//30daysoftrump.com/canceled',
+    })
+    .then(function (result) {
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+})();
+</script> 
+        </section>
+
+        <section>
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3356.4633357436446!2d-80.0433346845202!3d32.72688549384645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88fe7f1d5f1b0b49%3A0xeea7161ad578111b!2s2119%20Kemmerlin%20St%2C%20Johns%20Island%2C%20SC%2029455!5e0!3m2!1sen!2sus!4v1575389045686!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
         </section>
